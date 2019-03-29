@@ -57,25 +57,20 @@ class NickCommand extends Command {
         $replace = "§";
         $name = $sender->getName();
         $nnName = $pfile->getNested($name . ".newNick");
-        $displayName = $nnName;
         $api = $this->plugin->getServer()->getPluginManager()->getPlugin("PurePerms");
         $groupUpdate = $api->getDefaultGroup()->getName();
         $random = mt_rand(1, 20);
         $getOldGroup = $api->getGroup($pfile->getNested($name . ".oldGroup"));
         $check = explode(', ', $nicks->get($random));
-        $pfileCheck = explode(', ', (string)$pfile->getNested($name . ".number"));
-        $oldNametag = $pchat->getNested("groups." . $getOldGroup . ".nametag");
         if($pfile->getNested($name . ".isNicked", true)) {
             $pfile->setNested($name . ".isNicked", false);
             $pfile->getNested($name . ".oldName");
             $pfile->getNested($name . ".oldGroup");
-            //$nicks->set($random, $pfile->getNested($name . ".newNick") . ", false");
             $nicks->set($pfile->getNested($name . ".number"), $pfile->getNested($name . ".newNick") . ", false");
             $nicks->save();
             $pfile->save();
             $pAPI->getUserDataMgr()->setGroup($sender, $getOldGroup, null);
             $sender->setDisplayName($pfile->getNested($name . ".oldName"));
-            //$sender->setNameTag($this->convert($oldNametag, $displayName, $replace));
             $realName = $sender->getName();
             $sender->setNameTag($this->stringConvert($pchat->getNested("groups." . $getOldGroup . ".nametag"), $realName, $replace));
         } else {
