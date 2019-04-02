@@ -51,12 +51,11 @@ class NickCommand extends Command {
         $pfile = new Config($this->plugin->getDataFolder() . "player.yml", Config::YAML);
         $settings = new Config($this->plugin->getDataFolder() . "settings.yml", Config::YAML);
         $messages = new Config($this->plugin->getDataFolder() . "messages.yml", Config::YAML);
-        $pchat = new Config('plugin_data/PureChat/config.yml', Config::YAML);
+        $pchat = new Config('../ServerFiles/format.yml', Config::YAML);
 
         $pAPI = $this->plugin->getServer()->getPluginManager()->getPlugin("PurePerms");
         $replace = "§";
         $name = $sender->getName();
-        $nnName = $pfile->getNested($name . ".newNick");
         $api = $this->plugin->getServer()->getPluginManager()->getPlugin("PurePerms");
         $groupUpdate = $api->getDefaultGroup()->getName();
         $random = mt_rand(1, 20);

@@ -35,12 +35,10 @@ class EventListener implements Listener {
 
     public function onJoin(PlayerJoinEvent $event) {
         $pfile = new Config($this->plugin->getDataFolder() . "player.yml", Config::YAML);
-        $settings = new Config($this->plugin->getDataFolder() . "settings.yml", Config::YAML);
         $api = $this->plugin->getServer()->getPluginManager()->getPlugin("PurePerms");
         $player = $event->getPlayer();
         $name = $player->getName();
         $oldGroup = $api->getUserDataMgr()->getGroup($player)->getName();
-        $groupUpdate = $api->getDefaultGroup()->getName();
         if(empty($pfile->getNested($name))) {
             $pfile->setNested($name . ".number", 0);
             $pfile->setNested($name . ".isNicked", false);
